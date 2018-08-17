@@ -16,6 +16,7 @@
 		7601197021142888003435EB /* TestAR1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601196F21142888003435EB /* TestAR1Tests.swift */; };
 		7601197B21142888003435EB /* TestAR1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7601197A21142888003435EB /* TestAR1UITests.swift */; };
 		7626B9132126B46F009D384E /* readme.md in Resources */ = {isa = PBXBuildFile; fileRef = 7626B9122126B46F009D384E /* readme.md */; };
+		7626B9152126C382009D384E /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7626B9142126C382009D384E /* Plane.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		7601197A21142888003435EB /* TestAR1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAR1UITests.swift; sourceTree = "<group>"; };
 		7601197C21142888003435EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7626B9122126B46F009D384E /* readme.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = readme.md; sourceTree = "<group>"; };
+		7626B9142126C382009D384E /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		7626B9162126D9C6009D384E /* tron-albedo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tron-albedo.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,7 @@
 		7601195721142886003435EB /* TestAR1 */ = {
 			isa = PBXGroup;
 			children = (
+				7626B9162126D9C6009D384E /* tron-albedo.png */,
 				7601195821142886003435EB /* AppDelegate.swift */,
 				7601195A21142886003435EB /* art.scnassets */,
 				7601195C21142886003435EB /* ViewController.swift */,
@@ -109,6 +113,7 @@
 				7601196121142888003435EB /* Assets.xcassets */,
 				7601196321142888003435EB /* LaunchScreen.storyboard */,
 				7601196621142888003435EB /* Info.plist */,
+				7626B9142126C382009D384E /* Plane.swift */,
 			);
 			path = TestAR1;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7601195D21142886003435EB /* ViewController.swift in Sources */,
+				7626B9152126C382009D384E /* Plane.swift in Sources */,
 				7601195921142886003435EB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

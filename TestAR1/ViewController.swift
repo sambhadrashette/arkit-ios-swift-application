@@ -14,21 +14,28 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    var planes : NSMutableDictionary = [:];
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.sceneView.delegate = self;
+        self.planes = NSMutableDictionary();
+        
+        self.sceneView.showsStatistics = true;
+        self.sceneView.autoenablesDefaultLighting = true;
         
         let scene = SCNScene();
-        let box = SCNBox(width:0.1, height:0.1, length:0.1, chamferRadius:0.0);
+        /*let box = SCNBox(width:0.1, height:0.1, length:0.1, chamferRadius:0.0);
         
         let node = SCNNode(geometry:box);
         node.position = SCNVector3Make(0.0, 0.0, -0.5);
         
-        scene.rootNode.addChildNode(node);
+        scene.rootNode.addChildNode(node);*/
+        
+        sceneView.debugOptions.insert(ARSCNDebugOptions.showWorldOrigin);
+        sceneView.debugOptions.insert(ARSCNDebugOptions.showFeaturePoints);
         
         sceneView.scene = scene;
-        
-        sceneView.autoenablesDefaultLighting = true;
-        
         
     }
     
@@ -38,7 +45,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        configuration.planeDetection = ARWorldTrackingConfiguration.PlaneDetection.horizontal;
         // Run the view's session
         sceneView.session.run(configuration)
     }
@@ -57,14 +64,34 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        let node = SCNNode()
-     
-        return node
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        if(!anchor.isKind(of: ARPlaneAnchor.self)) {
+            return;
+        }
+        let arAnchor = anchor as! ARPlaneAnchor;
+        print(arAnchor.extent.x, arAnchor.extent.z);
+        let plane = Plane(anchor: anchor as! ARPlaneAnchor)
+        self.planes.setObject(plane, forKey: anchor.identifier as NSCopying);
+        node.addChildNode(plane);
     }
-*/
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        let plane = self.planes.object(forKey: anchor.identifier) as! Plane;
+        if(plane == nil) {
+            return;
+        }
+        plane.update(anchor: anchor as! ARPlaneAnchor);
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        self.planes.removeObject(forKey: anchor.identifier)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, willUpdate node: SCNNode, for anchor: ARAnchor) {
+        
+    }
+
     
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
